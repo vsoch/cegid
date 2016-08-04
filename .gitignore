@@ -1,0 +1,19 @@
+# Compiled pyc #
+################
+*.pyc
+.*
+!/.gitignore
+
+# Static #
+##########
+/expfactory-explorer
+/assets
+/static/css
+/static/images
+/static/games
+/static/surveys
+/static/js
+/static/favicon.ico
+/static/lib
+/static/fonts
+/static/experiments

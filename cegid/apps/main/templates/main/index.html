@@ -1,0 +1,71 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block includes %}
+ <style>
+    body, html{ margin: 0;}
+    path{ fill: none; stroke: gray; stroke-width: 2; }
+    circle.left-chain { fill: #999; opacity: 0.88;}
+    circle.right-chain { fill: #CCC;  opacity: 0.98;}
+  </style>
+    <script src="{% static "js/d3.js"%}"></script>
+    <script src="{% static "js/dz.js"%}"></script>
+{% endblock %}
+
+{% block content %}
+<script>
+var perspective = dz.projection.perspective()
+  , cameraPos = [1, -1, 5]
+  , camera = perspective.camera().position(cameraPos).focalLength(2)
+  , w = window.innerWidth, h = window.innerHeight
+  , sin = Math.sin, cos = Math.cos, π = Math.PI, τ = π * 2
+  , max = Math.max(w, h), min = Math.min(w, h), diff = max - min
+  , r = w / 12
+  , copy = function(data){ return data.slice(0) }
+
+  // screen scaling
+  , ranges = [ [0, max] , [ - diff / 2, max - diff / 2] ]
+  , screenX = d3.scale.linear().domain([-1, 1]).range(ranges[w < h ? 1 : 0])
+  , screenY = d3.scale.linear().domain([1, -1]).range(ranges[w > h ? 1 : 0])
+  , svg = d3.select('body').append('svg').attr({width: w, height: h})
+  , leftHelix = helix(20).map(dz.matrix().translate([0, -π, 0]).multiVector)
+  , rightHelix = leftHelix.map(copy).map(dz.matrix().rotateY(π).multiVector)
+  , line = d3.svg.line()
+      .x(function(d){ return screenX(perspective.x(d)) })
+      .y(function(d){ return screenY(perspective.y(d)) })
+
+function helix(n){
+  return d3.range(n).map(function(i){
+    return [sin(i / n * τ), i / n * τ, cos(i / n * τ)]
+  })
+}
+
+function update(){
+  this.attr('cx', function(d){ return screenX(perspective.x(d)) })
+    .attr('cy', function(d){ return screenY(perspective.y(d)) })
+    .attr('r', function(d){ return perspective.scale(d) * r })
+}
+
+var rows = svg.append('g').attr('class', 'rows').selectAll('path')
+  .data(d3.zip(leftHelix, rightHelix)).enter().append('path')
+  .attr('d', line)
+
+var leftChain = svg.selectAll('circle.left-chain').data(leftHelix)
+  .enter().append('circle').attr('class', 'left-chain').call(update)
+
+var rightChain = svg.selectAll('circle.right-chain').data(rightHelix)
+  .enter().append('circle').attr('class', 'right-chain').call(update)
+
+var circles = svg.selectAll('circle')
+ // here we will want to append some kind of data
+
+d3.timer(function(t){
+  t = t / 5000
+  perspective.camera().position(dz.matrix().rotateY(t).rotateZ(t/2).multiVector(cameraPos))
+  circles.call(update)
+    .sort(function(a, b){ return perspective.depth(a) - perspective.depth(b) })
+  rows.attr('d', line)
+})
+
+  </script>
+{% endblock %}
+

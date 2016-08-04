@@ -1,0 +1,79 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{% block title %}TCell Lab: Stanford Medicine{% endblock %}</title>
+
+    {% block includes %}{% endblock %}
+    {% block global_includes %}
+    <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
+    <link href="{% static "css/font-awesome.min.css"%}" rel="stylesheet">
+    <link href="{% static "css/prettyPhoto.css"%}" rel="stylesheet">
+    <link href="{% static "css/main.css"%}" rel="stylesheet">
+    <link href="{% static "css/responsive.css"%}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+
+    <!--{% include "main/google_analytics.html" %}-->
+
+</head><!--/head-->
+
+{% block body %}
+<body>
+
+{% block header %}
+<header class="main_header">
+    <div class="row">
+        <a class="logo" href="#">TCELL</a>
+        <div class="mobile-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href=".sec01">Section 01</a></li>
+                <li><a href=".sec02">Section 02</a></li>
+                <li><a href=".sec03">Section 03</a></li>
+                <li><a href=".sec04">Section 04</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+{% endblock %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<footer id="footer"><!--Footer-->
+{% block footer %}{% endblock %}
+    <div class="footer-bottom">
+        <div class="container">
+	    <div class="row">
+                <p class="pull-left style="font-variant: small-caps; color:CCC">Copyright © 2016 Stanford University All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer><!--/Footer-->
+
+{% block scripts %}  
+<script src="{% static "js/jquery.js"%}"></script>
+<script src="{% static "js/bootstrap.min.js"%}"></script>
+<script src="{% static "js/jquery.scrollUp.min.js"%}"></script>
+<script src="{% static "js/jquery.prettyPhoto.js"%}"></script>
+<script src="{% static "js/main.js"%}"></script>
+{% endblock %}
+
+</body>
+{% endblock %}
+</html>
