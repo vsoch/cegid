@@ -7,12 +7,14 @@
     {% include 'main/header.html' %}
 {% endblock %}
 
-{% block content %}
+{% block main %}
+<div class="row" style="padding-left:0px">
 <div class="col-md-3">
     {% include 'main/sidebar.html' %}
 </div>
-<div class="col-md-9">
-
+<div class="col-md-9" id="contentblock">
+{% block content %}{% endblock %}
+</div>
 </div>
 {% endblock %}
 {% block footer %}
