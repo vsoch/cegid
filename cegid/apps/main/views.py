@@ -6,16 +6,16 @@ from django.shortcuts import render, render_to_response
 import hashlib
 
 def index_view(request):
-    context = {'active':'home'}
-    return render(request, 'main/index.html', context)
+    return render(request, 'main/index.html')
+
+def home_view(request):
+    return render(request, 'main/home.html')
 
 def signup_view(request):
-    context = {'active':'home'}
-    return render(request, 'main/signup.html', context)
+    return render(request, 'main/signup.html')
 
 def about_view(request):
-    context = {'active':'home'}
-    return render(request, 'main/about.html', context)
+    return render(request, 'main/about.html')
 
 def search_view(request):
     return render(request, 'main/search.html')

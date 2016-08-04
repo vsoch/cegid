@@ -6,12 +6,25 @@
     path{ fill: none; stroke: gray; stroke-width: 2; }
     circle.left-chain { fill: #999; opacity: 0.88;}
     circle.right-chain { fill: #CCC;  opacity: 0.98;}
+    #hello{position:absolute;top:300px; left:15px; z-index:2000;font-size:80px;color:#666}
+    #details{position:absolute;top:400px; left:15px; z-index:2000;font-size:20px;color:#999}
+    #enter{position:absolute;top:500px;}
   </style>
     <script src="{% static "js/d3.js"%}"></script>
     <script src="{% static "js/dz.js"%}"></script>
 {% endblock %}
 
 {% block content %}
+<div class="row">
+   <div class="col-md-11" id="gene">
+       <span id="hello"></span>
+       <span id="details"></span>
+   </div>
+   <div class="col-md-1">
+       <a href="{% url 'home' %}"><button id="enter" class="btn btn-default btn-lg">Enter</button></a>
+   </div>
+</div>
+
 <script>
 var perspective = dz.projection.perspective()
   , cameraPos = [1, -1, 5]
@@ -26,7 +39,7 @@ var perspective = dz.projection.perspective()
   , ranges = [ [0, max] , [ - diff / 2, max - diff / 2] ]
   , screenX = d3.scale.linear().domain([-1, 1]).range(ranges[w < h ? 1 : 0])
   , screenY = d3.scale.linear().domain([1, -1]).range(ranges[w > h ? 1 : 0])
-  , svg = d3.select('body').append('svg').attr({width: w, height: h})
+  , svg = d3.select('#gene').append('svg').attr({width: w, height: h})
   , leftHelix = helix(20).map(dz.matrix().translate([0, -π, 0]).multiVector)
   , rightHelix = leftHelix.map(copy).map(dz.matrix().rotateY(π).multiVector)
   , line = d3.svg.line()
@@ -68,4 +81,19 @@ d3.timer(function(t){
 
   </script>
 {% endblock %}
-
+{% block scripts %}
+<script src="{% static "js/typed.min.js"%}"></script>
+<script>
+  $(function(){
+      $("#hello").typed({
+        strings: ["^9000 The Center for","Genetic Immune Diseases", "at Stanford Medicine"],
+        typeSpeed: 0
+      });
+      $(".typed-cursor").text("");
+      $("#details").typed({
+        strings: ["envision a world","where immune diseases are rapidly identified,", "treated and,", "genetically cured.","","^5000 Welcome!"],
+        typeSpeed: 0
+      });
+  });
+</script>
+{% endblock %}

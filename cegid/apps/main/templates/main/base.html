@@ -29,24 +29,6 @@
 <body>
 
 {% block header %}
-<header class="main_header">
-    <div class="row">
-        <a class="logo" href="#">TCELL</a>
-        <div class="mobile-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <nav>
-            <ul>
-                <li><a href=".sec01">Section 01</a></li>
-                <li><a href=".sec02">Section 02</a></li>
-                <li><a href=".sec03">Section 03</a></li>
-                <li><a href=".sec04">Section 04</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
 {% endblock %}
 
 <div class="container-fluid">
@@ -66,13 +48,13 @@
     </div>
 </footer><!--/Footer-->
 
-{% block scripts %}  
+
 <script src="{% static "js/jquery.js"%}"></script>
 <script src="{% static "js/bootstrap.min.js"%}"></script>
 <script src="{% static "js/jquery.scrollUp.min.js"%}"></script>
 <script src="{% static "js/jquery.prettyPhoto.js"%}"></script>
 <script src="{% static "js/main.js"%}"></script>
-{% endblock %}
+{% block scripts %}{% endblock %}
 
 </body>
 {% endblock %}

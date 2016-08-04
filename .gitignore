@@ -6,14 +6,9 @@
 
 # Static #
 ##########
-/expfactory-explorer
-/assets
-/static/css
-/static/images
-/static/games
-/static/surveys
-/static/js
-/static/favicon.ico
-/static/lib
-/static/fonts
-/static/experiments
+assets
+static/css
+static/js
+static/favicon.ico
+static/lib
+static/fonts
