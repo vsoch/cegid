@@ -13,7 +13,7 @@ RUN pip install numpy
 RUN pip install -v scipy
 RUN pip install cython
 RUN pip install uwsgi
-RUN pip install 'Django==1.8.8'
+RUN pip install 'Django==1.9'
 RUN pip install 'python-social-auth==0.2.7'
 RUN pip install markdown
 RUN pip install django-filter
