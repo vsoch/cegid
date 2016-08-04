@@ -20,22 +20,6 @@ def about_view(request):
 def search_view(request):
     return render(request, 'main/search.html')
 
-@requires_csrf_token
-def google_auth_view(request,bid,keyid):
-    '''google_auth_view generates a UID based on a gmail authentication
-    :param bid: the battery id
-    :param keyid: the keyid to validate the link
-    '''
-    battery = Battery.objects.get(id=bid)
-    uid = hashlib.md5(battery.name).hexdigest()
-    if uid == keyid:
-        context = {"keyid":keyid,
-                   "bid":bid}
-        return render_to_response("main/google_auth.html",context,context_instance=RequestContext(request))
-    else:
-        return render_to_response("turk/robot_sorry.html")
-
-
 # Error Pages ##################################################################
 
 def handler404(request):
