@@ -39,6 +39,10 @@ ul li {
   line-height:25px;
 }
 
+ol li {
+  line-height:25px;
+}
+
 .container-fluid {
   margin-top:50px;
 }

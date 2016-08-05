@@ -59,7 +59,16 @@ INSTALLED_APPS = (
     'polymorphic',
     'guardian',
     'dbbackup',
-    'django_gravatar',
+    'django_gravatar',  
+    'django_comments',
+    'mptt',
+    'tagging',
+    'zinnia',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+    'admin_tools_zinnia',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -108,10 +117,17 @@ TEMPLATES = [
                                             "django.core.context_processors.media",
                                             "django.core.context_processors.static",
                                             "django.core.context_processors.tz",
+                                            'django.template.context_processors.i18n',
+                                            'django.template.context_processors.request',
                                             "django.contrib.messages.context_processors.messages",
-                                            'django.core.context_processors.request'),
+                                            'django.core.context_processors.request',
+                                            'zinnia.context_processors.version'),
+
+
+
                     'loaders': ('django.template.loaders.filesystem.Loader',
                                 'django.template.loaders.app_directories.Loader',
+                                'admin_tools.template_loaders.Loader',
                                 )},
     }
      
@@ -160,6 +176,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CACHES = {
             'default': {
                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            },
+            'comparison': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                'LOCATION': 'comparison',
+                'TIMEOUT': None,
             }
 }
 
