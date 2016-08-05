@@ -6,4 +6,4 @@ from zinnia.sitemaps import AuthorSitemap
 sitemaps = {'tags': TagSitemap,
             'blog': EntrySitemap,
             'authors': AuthorSitemap,
-            'categories': CategorySitemap,}
+            'categories': CategorySitemap}
