@@ -43,10 +43,11 @@ body {
 <body>
 </body>
 
+<script src="{% static "js/jquery.js"%}"></script>
 <script>
 var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö .,!'
 var colors = ['#ccff26', '#ffa128', '#14fff1', '#ff61d1'];
-var message = {{ message }}
+var message = "{{ message }}"
 
 for (var i = 0; i < message.length; i++) {
   writeChar(message[i])
