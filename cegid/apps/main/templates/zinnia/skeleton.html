@@ -18,7 +18,9 @@
     {% block link %}{% endblock link %}
     {% block script %}{% endblock script %}
     <style>
-        body {background:white !important}
+        body {background:white !important;
+              text-shadow: none !important
+              text-decoration: none !important}
     </style>
 
   </head>
@@ -57,11 +59,6 @@
                 {% trans "Weblog index" %}
               </a>
             </li>
-            <li>
-              <a href="{% url 'zinnia:sitemap' %}" title="{% trans "Sitemap" %}">
-                {% trans "Sitemap" %}
-              </a>
-            </li>
           </ul>
         </div>
         <div class="search">
@@ -75,7 +72,7 @@
         {% endblock sidebar %}
       </div>
       <footer id="footer" role="contentinfo">
-                        <p class="pull-left style="font-variant: small-caps; color:CCC">Copyright © 2016 Stanford University All rights reserved.</p>
+           <p class="pull-left style="font-variant: small-caps; color:CCC">Copyright © 2016 Stanford University All rights reserved.</p>
       </footer>
     </div>
   </body>

@@ -1,0 +1,92 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>Center for Genetic Immune Diseases: {{ error_type }}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<style>
+div {
+    width: 400px;
+    height: 400px;
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+body {
+  margin: 20vw;
+}
+.char {
+  width: 1.5vw;
+  font: 1vw/3vw Monaco;
+  float: left;
+  span {
+    display: block;
+    width: 1.5vw;
+    text-align: center;
+  }
+}
+.gene {
+  width: .5vw;
+  height: 5vh;
+  float: left;
+  border-radius: 10px;
+}
+</style>
+<body>
+</body>
+
+<script>
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖabcdefghijklmnopqrstuvwxyzåäö .,!'
+var colors = ['#ccff26', '#ffa128', '#14fff1', '#ff61d1'];
+var message = {{ message }}
+
+for (var i = 0; i < message.length; i++) {
+  writeChar(message[i])
+};
+
+$(document).on('keypress', function(e) {
+  var char = (e.shiftKey) ? String.fromCharCode(e.which) : String.fromCharCode(e.which).toLowerCase();
+  writeChar(char);
+
+  e.preventDefault();
+})
+
+$(document).on('keydown', function(e) {
+  if (e.which === 8) {
+    $('.char').last().remove();
+    e.preventDefault();
+  }
+})
+
+function writeChar(char) {
+  if (chars.indexOf(char) > -1) {
+    var wrap = $('<div class="char" />');
+    for (var i = 0; i < 3; i++) {
+      var item = $('<div class="gene" />');
+      item.css('background-color', colors[quaternary(chars.indexOf(char), 3)[i]]);
+      if (char == ' '){
+        item.css('background-color', '#fff');
+      }
+      wrap.append(item);
+    }
+    wrap.append('<span>'+char+'</span>')
+    $('body').append(wrap);
+  }
+}
+
+function quaternary(n, l) {
+  l = l || 2;
+  n = n.toString(4);
+  while (n.length < l) n = '0' + n;
+  return n;
+}
+</script>
+</html>

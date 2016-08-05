@@ -69,7 +69,16 @@ var rightChain = svg.selectAll('circle.right-chain').data(rightHelix)
   .enter().append('circle').attr('class', 'right-chain').call(update)
 
 var circles = svg.selectAll('circle')
- // here we will want to append some kind of data
+              .on("mouseover",function(d){
+                  $(this).css("fill","#0F83FE")
+              })
+              .on("mouseout",function(d){
+                  if ($(this).hasClass("left-chain")){
+                      $(this).css("fill","#999")
+                  } else {
+                      $(this).css("fill","#CCC")
+                  }
+              })
 
 d3.timer(function(t){
   t = t / 5000

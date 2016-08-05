@@ -23,13 +23,17 @@ def search_view(request):
 # Error Pages ##################################################################
 
 def handler404(request):
-    response = render_to_response('main/404.html', {},
+    context = {"message":"Oups, we couldn't find that page!",
+               "error_type":"Page Not Found"}
+    response = render_to_response('main/error_base.html', context,
                                   context_instance=RequestContext(request))
     response.status_code = 404
     return response
 
 def handler500(request):
-    response = render_to_response('main/500.html', {},
+    context = {"message":"Beep boop. That's a server error.",
+               "error_type":"Server Error"}
+    response = render_to_response('main/error_base.html', {},
                                   context_instance=RequestContext(request))
     response.status_code = 500
     return response
