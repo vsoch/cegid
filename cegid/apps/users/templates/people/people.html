@@ -77,10 +77,10 @@ strong {color: #888;margin:-5px 0 5px 0;display:block;font-size:.8em;}
 {% for person in people %}
 <div class="person">
   <div class="person-badge">
-    <img class="normal" src="{{ person.avatar.url }}">
+    <img class="normal" src="/static/staff/{{ person.get_url }}">
     <!--<img class="peculiar" src="http://tech.custom-media.com/pics/t2.png">-->
   </div>
-  <h3>{{ person.name }}</h3>
+  <h3 style="margin-bottom:5px">{{ person.name }}</h3>
   <strong>{{ person.title }}</strong>
   <div>
     {{ person.description }}

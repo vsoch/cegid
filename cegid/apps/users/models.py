@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q, DO_NOTHING
 from django.db import models
 from jsonfield import JSONField
+import os
 
 class UserProfile(models.Model):
 
@@ -18,6 +19,8 @@ class UserProfile(models.Model):
         ("FACULTY","FACULTY"),
         ("STUDENT","STUDENT")
     )
+    def get_url(self):
+        return os.path.basename(self.avatar.url)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField("user role",max_length=100,choices=ROLE_CHOICES,null=True,blank=True,help_text="Name of user role.")
