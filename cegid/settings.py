@@ -156,6 +156,10 @@ MEDIA_URL = '/static/'
 STATIC_ROOT = '/var/www/assets'
 STATIC_URL = '/assets/'
 
+STAFF_PICTURES = "%s/staff" %(MEDIA_ROOT)
+if not os.path.exists(STAFF_PICTURES):
+    os.mkdir(STAFF_PICTURES)
+
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (

@@ -6,6 +6,8 @@
 
 # Static #
 ##########
+.static
+.assets
 assets
 static/css
 static/js

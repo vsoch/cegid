@@ -1,17 +1,19 @@
+{% extends "main/home.html" %}
+{% load gravatar %}
 {% load crispy_forms_tags %}
 
+{% block content %}
+
 <div class="auth-wrapper signup-wrapper">
-    <form role="form" method="post" action="{% url 'create_user' %}">
+    <form role="form" enctype="multipart/form-data" method="post" action="{% url 'edit_profile' %}">
         {% csrf_token %}
         <h2>{{ form_title }}</h2>
         {{ form | crispy }}
-        <label for="id_picture" class="control-label ">Picture</label>
-        <input type="file" name="picture" accept="image/*">
         <div class="extra-errors"></div>
         <button type="submit" class="btn btn-primary" data-disable-with="Signing Up…">
           {{ submit_text }}
         </button>
         <span class="pull-right auth-alt-method"><a href="{% url 'my_profile' %}">Log In</a></span>
-        <input type="hidden" name="next" value="{{ request.GET.next }}" />
     </form>
 </div>
+{% endblock %}

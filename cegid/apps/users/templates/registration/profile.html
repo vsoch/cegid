@@ -1,9 +1,9 @@
-{% extends "main/base.html" %}
+{% extends "main/home.html" %}
 {% load gravatar %}
 
 {% block content %}
-
 <h1>{{ user.username }}</h1>
 {% gravatar user.email 150 %}
-<h5 style="margin-top:15px"><a href="{% url 'edit_user' %}">Edit profile</a></h5>
+<h5 style="margin-top:15px"><a href="{% url 'edit_user' %}">Credentials</a></h5>
+<h5><a href="{% url 'edit_profile' %}">Edit Profile</a></h5>
 {% endblock %}

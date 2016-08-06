@@ -9,9 +9,12 @@
 
 {% block main %}
 <div class="row" style="padding-left:0px">
+{% block sidebar %}
 <div class="col-md-3">
     {% include 'main/sidebar.html' %}
 </div>
+{% endblock %}
+
 <div class="col-md-9" id="contentblock">
 {% block content %}{% endblock %}
 </div>

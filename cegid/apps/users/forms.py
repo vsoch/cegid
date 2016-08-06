@@ -1,8 +1,10 @@
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Hidden
+from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Hidden, Fieldset
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions, TabHolder, Tab, StrictButton
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.core.files.images import get_image_dimensions
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
+from .models import UserProfile
 from django import forms
 
 
@@ -23,13 +25,36 @@ class UserCreateForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
 
         super(UserCreateForm, self).__init__(*args, **kwargs)
-
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-lg-2'
         self.helper.field_class = 'col-lg-8'
         self.helper.layout = Layout()
         tab_holder = TabHolder()
+
+
+class UserUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ("avatar","description","role","name","title")
+
+    def save(self, commit=True):
+        user = super(UserUpdateForm, self).save(commit=False)
+        if commit:
+            user.save()
+        return user
+
+    def __init__(self, *args, **kwargs):
+
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-lg-2'
+        self.helper.field_class = 'col-lg-8'
+        self.helper.layout = Layout()
+        tab_holder = TabHolder()
+
 
 class UserEditForm(UserChangeForm):
     email = forms.EmailField(required=True)
