@@ -37,6 +37,15 @@
   color:#999;
 }
 
+#hero {
+  min-height: 300px;
+  width:100%;
+  background-size: 1200px;
+  background-position: 0px;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
 ul li {
   line-height:30px;
 }

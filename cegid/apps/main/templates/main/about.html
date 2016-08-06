@@ -3,8 +3,18 @@
 {% block includes %}
 {% endblock %}
 
+{% block header %}
+<style>
+#hero {
+  background-image:url({% static "images/banner/smiling-girl.jpg"%});
+   -webkit-filter: brightness(2);
+           filter: brightness(2);
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<img src="http://placehold.it/1000x100/f7f7f7/000000">
+<div id="hero"></div>
 <h2>Mission</h2>
 <p>CeGID will transform the lives of patients with primary immune diseases by discovering the genetic causes of their diseases; caring for them compassionately through innovative treatments aimed at cure; and offering education and advocacy. We enhance the Precision Health mission of the School of Medicine by deepening our understanding of genetic and epigenetic immune factors that confer risk for autoimmune and infectious disease. We will offer personalized medical care for each patient based on genetic, functional, and other findings, including repurposing drugs for individual use and running clinical trials for cohorts. We will make long-lasting, transformative changes in the field of immune diseases by bringing together researchers from around Stanford and across the world to our cause.</p>
 

@@ -7,12 +7,13 @@
   padding: 70px 0 0 230px;
   min-height: 200px;
   margin: auto;
+  margin-left:30px;
   position: relative;
 }
 .person-badge {
   width: 200px;
-  height: 280px;
-  border-radius: 0 0 100px 100px;
+  height: 200px;
+  border-radius: 100px 100px 100px 100px;
   overflow: hidden;
   transform: rotate(0deg); /* To force its own layer */
   position: absolute;
@@ -32,16 +33,6 @@
   background: linear-gradient(to bottom, #EEE 0%,#CCC 100%);
   transition:500ms;
 }
-.person-badge:after {
-  background: linear-gradient(to top, #F88 0%,#EEE 100%);
-  opacity: 0;
-}
-.person:nth-child(2) .person-badge:after {
-  background: linear-gradient(to top, #5AB 0%,#EEE 100%);  
-}
-.person:nth-child(3) .person-badge:after {
-  background: linear-gradient(to top, #FC0 0%,#EEE 100%);
-}
 .person-badge:hover:after {
   opacity: 1;
 }
@@ -53,13 +44,6 @@
   left: 0;
   transition: 500ms;
 }
-.person-badge img.peculiar {
-  opacity: 0;
-  transform: translateY(80px)
-}
-
-.person-badge:hover img.normal {opacity: 0;transform: translateY(80px)}
-.person-badge:hover img.peculiar {opacity: 1;transform: translateY(0)}
 
 .person h3 {
   margin: 0;
@@ -73,14 +57,13 @@ strong {color: #888;margin:-5px 0 5px 0;display:block;font-size:.8em;}
 {% endblock %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<h1 class="logo">{{ title }}</h1>
 {% for person in people %}
-<div class="person">
+<div class="person" style="margin-top:50px">
   <div class="person-badge">
     <img class="normal" src="/static/staff/{{ person.get_url }}">
-    <!--<img class="peculiar" src="http://tech.custom-media.com/pics/t2.png">-->
   </div>
-  <h3 style="margin-bottom:5px">{{ person.name }}</h3>
+  <h3 style="margin-bottom:10px">{{ person.name }}</h3>
   <strong>{{ person.title }}</strong>
   <div>
     {{ person.description }}
