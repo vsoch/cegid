@@ -14,6 +14,9 @@ def home_view(request):
 def signup_view(request):
     return render(request, 'main/signup.html')
 
+def contact_view(request):
+    return render(request, 'main/contact.html')
+
 def about_view(request):
     return render(request, 'main/about.html')
 

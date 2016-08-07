@@ -11,7 +11,10 @@
 <div class="row" style="padding-left:0px">
 {% block sidebar %}
 <div class="col-md-3">
+    <div class="left-sidebar">
     {% include 'main/sidebar.html' %}
+    {% block sidebarbottom %}{% endblock %}	
+    </div>
 </div>
 {% endblock %}
 
