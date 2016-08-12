@@ -21,6 +21,9 @@ ADMINS = (('vsochat', 'vsochat@gmail.com'),)
 
 MANAGERS = ADMINS
 
+# PUBMED SEARCH TERMS
+PUBMED_SEARCH_TERMS = ["immune","genetic"]
+
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 DEBUG = False
