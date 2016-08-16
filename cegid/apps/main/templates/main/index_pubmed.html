@@ -1,30 +1,48 @@
-{% extends "main/home.html" %}
+{% extends "main/base.html" %}
 {% load staticfiles %}
-
 {% block includes %}
  <style>
+    body, html{ margin: 0;}
     path{ fill: none; stroke: gray; stroke-width: 2; }
     circle.left-chain { fill: #999; opacity: 0.88;{% if articles %}cursor: pointer;{% endif %}}
     circle.right-chain { fill: #CCC;  opacity: 0.98;{% if articles %}cursor: pointer;{% endif %}}
-    #hello{position:absolute;top:300px; z-index:2000;font-size:40px;color:#666}
-    #details{position:absolute;top:400px; z-index:2000;font-size:20px;color:#999}
+    #hello{position:absolute;top:300px; left:15px; z-index:2000;font-size:80px;color:#666}
+    #details{position:absolute;top:400px; left:15px; z-index:2000;font-size:20px;color:#999}
+    {% if articles %}
+    #article{position:absolute;top:50px; left:15px; 
+             z-index:2000;font-size:16px;color:#999;
+             background-color:#F7F7F7;border-radius:10px;
+             padding:5px;}
+    {% endif %}
+    #enter{position:absolute;top:500px;}
   </style>
     <script src="{% static "js/jquery.js"%}"></script>
     <script src="{% static "js/d3.js"%}"></script>
     <script src="{% static "js/dz.js"%}"></script>
 {% endblock %}
 
-{% block content %}
+{% block main %}
 <div class="row">
-   <div class="col-md-10" id="gene">
+   <div class="col-md-11" id="gene">
+       {% if articles %}
+       <span id="article">
+           <h2 style="font-size:18px" id="article_title"></h2>
+           <p id="article_description"></p>
+       </span>
+       {% endif %}
        <span id="hello"></span>
        <span id="details"></span>
    </div>
-   <div class="col-md-2">
+   <div class="col-md-1">
+       <a href="{% url 'home' %}"><button id="enter" class="btn btn-default btn-lg">Enter</button></a>
    </div>
 </div>
 
 <script>
+{% if articles %}
+var articles = {{ articles | safe }}
+articles.shift()
+{% endif %}
 
 var perspective = dz.projection.perspective()
   , cameraPos = [1, -1, 5]
@@ -52,18 +70,46 @@ function helix(n){
   })
 }
 
+{% if articles %}
+function update(){
+  this.attr('cx', function(d){ return screenX(perspective.x(d.coords)) })
+    .attr('cy', function(d){ return screenY(perspective.y(d.coords)) })
+    .attr('r', function(d){ return perspective.scale(d.coords) * r })
+}
+{% else %}
 function update(){
   this.attr('cx', function(d){ return screenX(perspective.x(d)) })
     .attr('cy', function(d){ return screenY(perspective.y(d)) })
     .attr('r', function(d){ return perspective.scale(d) * r })
 }
+{% endif %}
 
 var rows = svg.append('g').attr('class', 'rows').selectAll('path')
   .data(d3.zip(leftHelix, rightHelix)).enter().append('path')
   .attr('d', line)
 
-var LH = leftHelix;
-var RH = rightHelix;
+var LH = [];
+var RH = [];
+
+{% if articles %}
+// Update left halves
+$.each(leftHelix,function(i,e){
+  var article = articles.shift()
+  var entry = {"article":article,
+               "coords":e}   
+  LH.push(entry)
+})
+// Update right halves
+$.each(rightHelix,function(i,e){
+  var article = articles.shift()
+  var entry = {"article":article,
+               "coords":e}   
+  RH.push(entry)
+})
+{% else %}
+LH = leftHelix;
+RH = rightHelix;
+{% endif %}
 
 var leftChain = svg.selectAll('circle.left-chain').data(LH)
   .enter().append('circle').attr('class', 'left-chain').call(update)
@@ -79,6 +125,9 @@ function OpenInNewTab(url) {
 var circles = svg.selectAll('circle')
     .on("mouseover",function(d){
         $(this).css("fill","#0F83FE")
+        $("#article_title").text(d.article.title);
+        var description = d.article.fulljournalname + ", " + d.article.epubdate
+        $("#article_description").text(description);
     })
     .on("mouseout",function(d){
         if ($(this).hasClass("left-chain")){
@@ -87,13 +136,24 @@ var circles = svg.selectAll('circle')
             $(this).css("fill","#CCC")
         }
     })
+    {% if articles %}
+    .on("click",function(d){
+        var url = "http://www.ncbi.nlm.nih.gov/pubmed/" + d.article.uid;
+        OpenInNewTab(url);
+    });
+    {% endif %}
 
 d3.timer(function(t){
   t = t / 5000
   perspective.camera().position(dz.matrix().rotateY(t).rotateZ(t/2).multiVector(cameraPos))
   circles.call(update)
+  {% if articles %}
+    .sort(function(a, b){ return perspective.depth(a.coords) - perspective.depth(b.coords) })
+  rows.attr('d', line) 
+  {% else %}
     .sort(function(a, b){ return perspective.depth(a) - perspective.depth(b) })
   rows.attr('d', line)
+  {% endif %}
 })
 
   </script>

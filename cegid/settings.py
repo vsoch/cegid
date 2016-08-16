@@ -22,6 +22,7 @@ ADMINS = (('vsochat', 'vsochat@gmail.com'),)
 MANAGERS = ADMINS
 
 # PUBMED SEARCH TERMS
+ADD_ARTICLES = False # Do you want the intro animation to have pubmed articles?
 PUBMED_SEARCH_TERMS = ["immune","genetic"]
 
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/

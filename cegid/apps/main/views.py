@@ -1,4 +1,5 @@
 from cegid.apps.main.utils import get_pubmed_articles
+from cegid.settings import ADD_ARTICLES
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count
@@ -7,14 +8,16 @@ from django.shortcuts import render, render_to_response
 import hashlib
 
 def index_view(request):
-    articles = get_pubmed_articles()
     context = {}
-    if articles != None:
-        article_list = []
-        for pmid, info in articles['result'].items():
-            article_list.append(info)
-        context["articles"] = article_list
+    if ADD_ARTICLES == True:
+        articles = get_pubmed_articles()
+        if articles != None:
+            article_list = []
+            for pmid, info in articles['result'].items():
+                article_list.append(info)
+            context["articles"] = article_list
 
+        return render(request, 'main/index_pubmed.html', context)
     return render(request, 'main/index.html', context)
 
 def home_view(request):
