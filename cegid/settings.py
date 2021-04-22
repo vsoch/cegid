@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DOMAIN_NAME = "https://cegid.stanford.edu" 
 DOMAIN_NAME_HTTP = "http://cegid.stanford.edu" 
 
-ADMINS = (('vsochat', 'vsochat@gmail.com'),)
+ADMINS = (('vsochat', '@vsoch'),)
 
 MANAGERS = ADMINS
 
